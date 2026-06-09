@@ -1,0 +1,323 @@
+
+=== DIRECTORY TREE (max depth 3, source files only) ===
+agentgateway
+agentgateway/.cargo
+agentgateway/.cargo/config.toml
+agentgateway/.devcontainer.json
+agentgateway/.dockerignore
+agentgateway/.gitattributes
+agentgateway/.githooks
+agentgateway/.githooks/prepare-commit-msg
+agentgateway/.github
+agentgateway/.github/dependabot.yml
+agentgateway/.github/skills
+agentgateway/.github/skills/acquire-codebase-knowledge
+agentgateway/.github/vex
+agentgateway/.github/vex/openvex.json
+agentgateway/.github/workflows
+agentgateway/.github/workflows/cache-e2e
+agentgateway/.github/workflows/cache-lint
+agentgateway/.github/workflows/cache-test
+agentgateway/.github/workflows/debug_cache.yml
+agentgateway/.github/workflows/nightly.yml
+agentgateway/.github/workflows/pull_request.yml
+agentgateway/.github/workflows/release.yml
+agentgateway/.gitignore
+agentgateway/CHARTER.md
+agentgateway/CODEOWNERS
+agentgateway/CODE_OF_CONDUCT.md
+agentgateway/CONTRIBUTION.md
+agentgateway/Cargo.lock
+agentgateway/Cargo.toml
+agentgateway/DEVELOPMENT.md
+agentgateway/Dockerfile
+agentgateway/Dockerfile.windows
+agentgateway/LICENSE
+agentgateway/Makefile
+agentgateway/README.md
+agentgateway/SECURITY.md
+agentgateway/Tiltfile
+agentgateway/api
+agentgateway/api/go.mod
+agentgateway/api/go.sum
+agentgateway/api/resource.pb.go
+agentgateway/api/resource_json.gen.go
+agentgateway/architecture
+agentgateway/architecture/README.md
+agentgateway/architecture/cel.md
+agentgateway/architecture/configuration.md
+agentgateway/buf.gen.yaml
+agentgateway/buf.yaml
+agentgateway/common
+agentgateway/common/scripts
+agentgateway/common/scripts/get-agentgateway
+agentgateway/controller
+agentgateway/controller/.custom-gcl.yml
+agentgateway/controller/.golangci.yaml
+agentgateway/controller/Makefile
+agentgateway/controller/api
+agentgateway/controller/api/README.md
+agentgateway/controller/api/annotations
+agentgateway/controller/api/settings
+agentgateway/controller/api/tests
+agentgateway/controller/api/v1alpha1
+agentgateway/controller/cmd
+agentgateway/controller/cmd/agctl
+agentgateway/controller/cmd/agentgateway
+agentgateway/controller/cmd/dependencies_test.go
+agentgateway/controller/hack
+agentgateway/controller/hack/bump_deps.sh
+agentgateway/controller/hack/ci
+agentgateway/controller/hack/crdgen
+agentgateway/controller/hack/generate-release-notes.sh
+agentgateway/controller/hack/generate.go
+agentgateway/controller/hack/generate.sh
+agentgateway/controller/hack/helm
+agentgateway/controller/hack/run-e2e-test.sh
+agentgateway/controller/hack/testbox
+agentgateway/controller/hack/utils
+agentgateway/controller/install
+agentgateway/controller/install/dashboards
+agentgateway/controller/install/helm
+agentgateway/controller/pkg
+agentgateway/controller/pkg/admin
+agentgateway/controller/pkg/agentgateway
+agentgateway/controller/pkg/apiclient
+agentgateway/controller/pkg/cli
+agentgateway/controller/pkg/client
+agentgateway/controller/pkg/common
+agentgateway/controller/pkg/controller
+agentgateway/controller/pkg/deployer
+agentgateway/controller/pkg/helm
+agentgateway/controller/pkg/logging
+agentgateway/controller/pkg/meshconfig
+agentgateway/controller/pkg/metrics
+agentgateway/controller/pkg/pluginsdk
+agentgateway/controller/pkg/reports
+agentgateway/controller/pkg/schemes
+agentgateway/controller/pkg/setup
+agentgateway/controller/pkg/syncer
+agentgateway/controller/pkg/utils
+agentgateway/controller/pkg/version
+agentgateway/controller/pkg/wellknown
+agentgateway/controller/test
+agentgateway/controller/test/README.md
+agentgateway/controller/test/conformance
+agentgateway/controller/test/deployer
+agentgateway/controller/test/e2e
+agentgateway/controller/test/gomega
+agentgateway/controller/test/helm
+agentgateway/controller/test/helpers
+agentgateway/controller/test/setup
+agentgateway/controller/test/testutils
+agentgateway/crates
+agentgateway/crates/agentgateway
+agentgateway/crates/agentgateway/Cargo.toml
+agentgateway/crates/agentgateway/benches
+agentgateway/crates/agentgateway/src
+agentgateway/crates/agentgateway/tests
+agentgateway/crates/agentgateway-app
+agentgateway/crates/agentgateway-app/Cargo.toml
+agentgateway/crates/agentgateway-app/src
+agentgateway/crates/agentgateway-app/tests
+agentgateway/crates/cel-fork
+agentgateway/crates/cel-fork/cel
+agentgateway/crates/cel-fork/cel-derive
+agentgateway/crates/celx
+agentgateway/crates/celx/Cargo.toml
+agentgateway/crates/celx/benches
+agentgateway/crates/celx/src
+agentgateway/crates/core
+agentgateway/crates/core/Cargo.toml
+agentgateway/crates/core/build.rs
+agentgateway/crates/core/src
+agentgateway/crates/hbone
+agentgateway/crates/hbone/Cargo.toml
+agentgateway/crates/hbone/src
+agentgateway/crates/htpasswd-verify-fork
+agentgateway/crates/htpasswd-verify-fork/Cargo.toml
+agentgateway/crates/htpasswd-verify-fork/README.md
+agentgateway/crates/htpasswd-verify-fork/src
+agentgateway/crates/pool
+agentgateway/crates/pool/.gitignore
+agentgateway/crates/pool/CHANGELOG.md
+agentgateway/crates/pool/Cargo.toml
+agentgateway/crates/pool/LICENSE
+agentgateway/crates/pool/README.md
+agentgateway/crates/pool/src
+agentgateway/crates/protos
+agentgateway/crates/protos/Cargo.toml
+agentgateway/crates/protos/build.rs
+agentgateway/crates/protos/proto
+agentgateway/crates/protos/src
+agentgateway/crates/xds
+agentgateway/crates/xds/Cargo.toml
+agentgateway/crates/xds/src
+agentgateway/crates/xtask
+agentgateway/crates/xtask/Cargo.toml
+agentgateway/crates/xtask/src
+agentgateway/deny.toml
+agentgateway/design
+agentgateway/design/288-inferencepool-ai-policies.md
+agentgateway/design/README.md
+agentgateway/design/template.md
+agentgateway/docs
+agentgateway/docs/codebase
+agentgateway/docs/codebase/.codebase-scan.txt
+agentgateway/examples
+agentgateway/examples/README.md
+agentgateway/examples/a2a
+agentgateway/examples/a2a/README.md
+agentgateway/examples/a2a/config.yaml
+agentgateway/examples/a2a/strands-agents
+agentgateway/examples/ai-prompt-guard
+agentgateway/examples/ai-prompt-guard/README.md
+agentgateway/examples/ai-prompt-guard/azure-content-safety-config.yaml
+agentgateway/examples/ai-prompt-guard/bedrock-config.yaml
+agentgateway/examples/ai-prompt-guard/config.yaml
+agentgateway/examples/ai-prompt-guard/model-armor-config.yaml
+agentgateway/examples/authorization
+agentgateway/examples/authorization/README.md
+agentgateway/examples/authorization/config.yaml
+agentgateway/examples/authorization/img
+agentgateway/examples/aws-agentcore
+agentgateway/examples/aws-agentcore/config.yaml
+agentgateway/examples/basic
+agentgateway/examples/basic/README.md
+agentgateway/examples/basic/config.yaml
+agentgateway/examples/basic/img
+agentgateway/examples/delegation
+agentgateway/examples/delegation/README.md
+agentgateway/examples/delegation/config.yaml
+agentgateway/examples/http
+agentgateway/examples/http/README.md
+agentgateway/examples/http/config.yaml
+agentgateway/examples/mcp-authentication
+agentgateway/examples/mcp-authentication/README.md
+agentgateway/examples/mcp-authentication/auth_server.py
+agentgateway/examples/mcp-authentication/config.yaml
+agentgateway/examples/mcp-authentication/keycloak
+agentgateway/examples/multiplex
+agentgateway/examples/multiplex/README.md
+agentgateway/examples/multiplex/config.yaml
+
+=== STACK DETECTION (manifest files) ===
+No recognized manifest files found in project root.
+
+=== ENTRY POINTS ===
+No common entry points found. Check 'main' or 'scripts.start' in manifest files above.
+
+=== LINTING AND FORMATTING CONFIG ===
+No linting or formatting config files found in project root.
+
+=== ENVIRONMENT VARIABLE TEMPLATES ===
+No .env.example or .env.template found. Identify required environment variables by searching the code and config for environment variable reads.
+
+=== TODO / FIXME / HACK (production code only, test dirs excluded) ===
+agentgateway/crates/hbone/src/lib.rs:278: // TODO: Hyper and Go make their pinging data aware and don't send pings when data is received
+agentgateway/crates/hbone/src/pool.rs:76: // TODOMERGE: timeout, nodelay
+agentgateway/crates/hbone/src/pool.rs:323: // TODO: in the future, we can keep track of these and start to use them once they finish some streams.
+agentgateway/crates/hbone/src/pool.rs:406: // TODO BML this may not be collision resistant, or a fast hash. It should be resistant enough for workloads tho.
+agentgateway/crates/agentgateway/src/app.rs:56: // TODO: use for XDS
+agentgateway/crates/agentgateway/src/types/agent_xds.rs:262: // TODO: this default only makes sense for HTTPS, distinguish from TLS
+agentgateway/crates/agentgateway/src/types/agent_xds.rs:585: headers: None, // TODO: map from proto if headers are added there
+agentgateway/crates/agentgateway/src/types/agent_xds.rs:678: headers: None, // TODO: map from proto if headers are added there
+agentgateway/crates/agentgateway/src/types/local.rs:2223: // TODO: we could do this to support vertex calls. But we would need to extract the model name from the URL
+agentgateway/crates/agentgateway/src/types/local.rs:2389: // TODO: should we automatically make more explicit prefixes higher ranked?
+agentgateway/crates/agentgateway/src/types/discovery.rs:107: /// TODO: we don't know the cluster domain, so we potentially return the wrong hostname for this waypoint.
+agentgateway/crates/agentgateway/src/types/agent.rs:485: // TODO: store raw pem
+agentgateway/crates/agentgateway/src/types/agent.rs:1893: // TODO: not sure that is right
+agentgateway/crates/agentgateway/src/types/loadbalancer.rs:603: // TODO: allow selecting across multiple buckets.
+agentgateway/crates/agentgateway/src/types/loadbalancer.rs:723: // TODO this currently cannot happen, but we could maybe get better
+agentgateway/crates/agentgateway/src/types/loadbalancer.rs:867: // TODO: this will overload them on the first request
+agentgateway/crates/agentgateway/src/llm/mod.rs:653: // TODO?: this may impact the user, if they make assumptions about the stream NOT including usage.
+agentgateway/crates/agentgateway/src/llm/types/bedrock.rs:298: // TODO: Implement prompt variable values
+agentgateway/crates/agentgateway/src/llm/types/bedrock.rs:303: // TODO: Implement performance configuration
+agentgateway/crates/agentgateway/src/llm/types/detect.rs:295: // TODO: we could probably derive this
+agentgateway/crates/agentgateway/src/llm/types/completions.rs:377: // TODO?
+agentgateway/crates/agentgateway/src/llm/conversion/bedrock.rs:846: // TODO: can we get reasoning tokens?
+agentgateway/crates/agentgateway/src/llm/conversion/completions.rs:804: // TODO
+agentgateway/crates/agentgateway/src/llm/conversion/completions.rs:807: // TODO
+agentgateway/crates/agentgateway/src/llm/policy/webhook.rs:161: // TODO: this is configurable by users
+agentgateway/crates/agentgateway/src/llm/policy/webhook.rs:163: // TODO: probably others
+agentgateway/crates/agentgateway/src/llm/policy/mod.rs:937: // 		// TODO: the webhook API cannot express functions or tools...
+agentgateway/crates/agentgateway/src/llm/policy/google_model_armor.rs:130: // TODO: check if this is true for all versions?
+agentgateway/crates/agentgateway/src/proxy/gateway.rs:341: let mode = drain_mode.mode(); // TODO: handle mode differently?
+agentgateway/crates/agentgateway/src/proxy/gateway.rs:1005: // TODO(https://github.com/rustls/tokio-rustls/pull/147): write
+agentgateway/crates/agentgateway/src/proxy/httpproxy.rs:275: // TODO: implement session persistence
+agentgateway/crates/agentgateway/src/proxy/httpproxy.rs:853: // TODO: mirror the body. For now, we just ignore the body
+agentgateway/crates/agentgateway/src/proxy/httpproxy.rs:2300: // TODO: we currently do not support ImmediateResponse from inference router
+agentgateway/crates/agentgateway/src/proxy/httpproxy.rs:2528: // TODO: this should only be used with DNS resolution type! maybe?
+agentgateway/crates/agentgateway/src/proxy/httpproxy.rs:2612: // TODO: plumb `_handle` through the waypoint/gateway transports so endpoint selection
+agentgateway/crates/agentgateway/src/proxy/httpproxy.rs:3221: // TODO(https://github.com/hyperium/http/pull/811) actually make this shared
+agentgateway/crates/agentgateway/src/proxy/httpproxy.rs:3227: // TODO: or always do this?
+agentgateway/crates/agentgateway/src/proxy/tcpproxy.rs:197: // TODO: for TCP we should actually probably do something here: telling it to not use ALPN at all?
+agentgateway/crates/agentgateway/src/parse/websocket.rs:55: // TODO: do we need to parse the request side to get the request model?
+agentgateway/crates/agentgateway/src/mcp/session.rs:285: // TODO: this is too broad. We have a big tangle of errors to untangle though
+agentgateway/crates/agentgateway/src/mcp/session.rs:394: // TODO(keithmattix): should we forward pings or should we do our own independent pings
+agentgateway/crates/agentgateway/src/mcp/session.rs:504: // TODO(https://github.com/agentgateway/agentgateway/issues/404)
+agentgateway/crates/agentgateway/src/mcp/session.rs:547: // TODO: the notification needs to be fanned out in some cases and sent to a single one in others
+agentgateway/crates/agentgateway/src/mcp/handler.rs:714: // TODO: is it ok to have no event_id here?
+agentgateway/crates/agentgateway/src/mcp/auth.rs:72: // TODO: indicate this is a DirectResponse
+agentgateway/crates/agentgateway/src/mcp/upstream/openapi/mod.rs:28: pub method: String, /* TODO: Switch to Method, but will require getting rid of Serialize/Deserialize */
+agentgateway/crates/agentgateway/src/http/localratelimit.rs:71: // TODO: return headers on success, not just failure
+agentgateway/crates/agentgateway/src/http/ext_authz.rs:824: // TODO: today we always insert. We should consider adding a mode to append.
+agentgateway/crates/agentgateway/src/http/ext_authz.rs:991: // TODO: this runs on the response. We would ideally have a way to NOT consider the response
+agentgateway/crates/agentgateway/src/http/route.rs:43: // TODO this is not right!!
+agentgateway/crates/agentgateway/src/http/route.rs:80: // TODO: this re-parses the query string on every call; hoist to caller if this becomes a hot path.
+agentgateway/crates/agentgateway/src/http/route.rs:187: port: dst.port(), // TODO: get from req
+agentgateway/crates/agentgateway/src/http/route_test.rs:186: // TODO: is this right?
+agentgateway/crates/agentgateway/src/http/mod.rs:201: // TODO: do the same for HeaderOrPseudo::Scheme
+agentgateway/crates/agentgateway/src/http/mod.rs:752: // TODO: handle absolute HTTP/1.1 form
+agentgateway/crates/agentgateway/src/http/mod.rs:759: // TODO: handle absolute HTTP/1.1 form
+agentgateway/crates/agentgateway/src/http/jwt.rs:85: // TODO: can we give anything useful here?
+agentgateway/crates/agentgateway/src/http/backendtls.rs:223: // TODO: we probably should do this once globally!
+agentgateway/crates/agentgateway/src/http/ext_proc.rs:147: // TODO: expose fail-open configuration for standalone EPP once the fallback behavior is
+agentgateway/crates/agentgateway/src/http/ext_proc.rs:791: eval_to_struct(&exec, e).map(|v| (n.clone(), v)).ok() // TODO(mk): where best to log convertion issues
+
+=== GIT RECENT COMMITS (last 20) ===
+No commits found.
+
+=== HIGH-CHURN FILES (last 90 days, top 20) ===
+None found.
+
+=== MONOREPO SIGNALS ===
+No monorepo signals detected.
+
+=== CODE METRICS ===
+Total files scanned: 1696
+Total lines of code: 286089
+
+Files by language:
+  Other: 904
+  Go: 351
+  Rust: 345
+  TypeScript/React: 73
+  TypeScript: 18
+  Python: 5
+
+Top 10 largest files:
+agentgateway/schema/config.md: 2563.1KB
+agentgateway/controller/install/helm/agentgateway-crds/templates/agentgateway.dev_agentgatewaybackends.yaml: 929.2KB
+agentgateway/controller/install/helm/agentgateway-crds/templates/agentgateway.dev_agentgatewaypolicies.yaml: 646.6KB
+agentgateway/api/resource.pb.go: 531.4KB
+agentgateway/examples/a2a/strands-agents/uv.lock: 522.0KB
+agentgateway/examples/telemetry/img/gemini-tracing.png: 494.3KB
+agentgateway/img/architecture.svg: 411.9KB
+agentgateway/ui/package-lock.json: 294.8KB
+agentgateway/img/UI-homepage.png: 282.8KB
+agentgateway/examples/basic/img/tools.png: 199.9KB
+
+=== CI/CD PIPELINES ===
+No CI/CD pipelines detected.
+
+=== CONTAINERS & ORCHESTRATION ===
+No containerization configs detected.
+
+=== SECURITY & COMPLIANCE ===
+No security configs detected.
+
+=== PERFORMANCE & TESTING ===
+No performance testing configs detected.
+
+=== SCAN COMPLETE ===
