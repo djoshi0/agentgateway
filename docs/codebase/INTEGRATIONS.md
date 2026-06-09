@@ -6,16 +6,16 @@
 
 Agentgateway provides a unified OpenAI-compatible API that proxies to all of the following:
 
-| Provider | Auth method | Module | Notes |
-|----------|-------------|--------|-------|
-| OpenAI | Bearer token (API key) | `llm/openai.rs` | Reference implementation |
-| Anthropic | Bearer token (API key) | `llm/anthropic.rs` | |
-| Google Gemini | GCP ADC / service account | `llm/gemini.rs` | |
-| Google Vertex AI | GCP ADC via `google-cloud-auth` | `llm/vertex.rs` | |
-| AWS Bedrock | AWS SigV4 (`aws-sigv4`) + `aws-config` | `llm/bedrock.rs` | Supports event stream |
-| Azure OpenAI | Azure identity (`azure_identity`) | `llm/azure.rs` | |
-| GitHub Copilot | Bearer token | `llm/copilot.rs` | |
-| Custom / InferencePool | Configurable (see EP-288) | `llm/custom.rs` | Targets Service or InferencePool |
+| Provider               | Auth method                            | Module             | Notes                            |
+| ---------------------- | -------------------------------------- | ------------------ | -------------------------------- |
+| OpenAI                 | Bearer token (API key)                 | `llm/openai.rs`    | Reference implementation         |
+| Anthropic              | Bearer token (API key)                 | `llm/anthropic.rs` |                                  |
+| Google Gemini          | GCP ADC / service account              | `llm/gemini.rs`    |                                  |
+| Google Vertex AI       | GCP ADC via `google-cloud-auth`        | `llm/vertex.rs`    |                                  |
+| AWS Bedrock            | AWS SigV4 (`aws-sigv4`) + `aws-config` | `llm/bedrock.rs`   | Supports event stream            |
+| Azure OpenAI           | Azure identity (`azure_identity`)      | `llm/azure.rs`     |                                  |
+| GitHub Copilot         | Bearer token                           | `llm/copilot.rs`   |                                  |
+| Custom / InferencePool | Configurable (see EP-288)              | `llm/custom.rs`    | Targets Service or InferencePool |
 
 Credentials are injected from the config file or environment variables; never committed to the repo.
 
@@ -25,13 +25,13 @@ Credentials are injected from the config file or environment variables; never co
 
 The MCP gateway can fan out to multiple upstream MCP servers over any of:
 
-| Transport | Module | Notes |
-|-----------|--------|-------|
-| HTTP (Streamable HTTP) | `mcp/upstream/streamablehttp.rs` | Preferred MCP transport |
-| Server-Sent Events (SSE) | `mcp/upstream/sse.rs` | Legacy MCP transport |
-| stdio | `mcp/upstream/stdio.rs` | Spawns subprocess (local tools) |
-| OpenAPI | `mcp/upstream/openapi/` | Converts OpenAPI spec to MCP tools |
-| HTTP client (generic) | `mcp/upstream/client.rs` | Shared HTTP upstream logic |
+| Transport                | Module                           | Notes                              |
+| ------------------------ | -------------------------------- | ---------------------------------- |
+| HTTP (Streamable HTTP)   | `mcp/upstream/streamablehttp.rs` | Preferred MCP transport            |
+| Server-Sent Events (SSE) | `mcp/upstream/sse.rs`            | Legacy MCP transport               |
+| stdio                    | `mcp/upstream/stdio.rs`          | Spawns subprocess (local tools)    |
+| OpenAPI                  | `mcp/upstream/openapi/`          | Converts OpenAPI spec to MCP tools |
+| HTTP client (generic)    | `mcp/upstream/client.rs`         | Shared HTTP upstream logic         |
 
 ---
 
@@ -46,41 +46,41 @@ The MCP gateway can fan out to multiple upstream MCP servers over any of:
 
 ### 4) Authentication & Authorization
 
-| Mechanism | Module / crate | Notes |
-|-----------|---------------|-------|
-| JWT verification | `http/jwt.rs`, `jsonwebtoken` crate | RSA, EC, HMAC; JWKS URL fetch |
-| API key | `http/apikey.rs` | Header or query param |
-| Basic auth / htpasswd | `http/basicauth.rs`, `htpasswd-verify-fork` | |
-| OAuth 2.0 / OIDC | `http/oauth.rs`, `http/oidc/` | Token exchange, PKCE |
-| External authorization (ext_authz) | `http/ext_authz.rs` | Envoy-compatible gRPC ext_authz |
-| External processing (ext_proc) | `http/ext_proc.rs` | Envoy-compatible gRPC ext_proc |
-| mTLS / CA client | `control/caclient.rs` | Certificate provisioning for workload identity |
-| CEL RBAC | `http/authorization.rs`, `mcp/rbac.rs` | Policy evaluated per-request using CEL |
+| Mechanism                          | Module / crate                              | Notes                                          |
+| ---------------------------------- | ------------------------------------------- | ---------------------------------------------- |
+| JWT verification                   | `http/jwt.rs`, `jsonwebtoken` crate         | RSA, EC, HMAC; JWKS URL fetch                  |
+| API key                            | `http/apikey.rs`                            | Header or query param                          |
+| Basic auth / htpasswd              | `http/basicauth.rs`, `htpasswd-verify-fork` |                                                |
+| OAuth 2.0 / OIDC                   | `http/oauth.rs`, `http/oidc/`               | Token exchange, PKCE                           |
+| External authorization (ext_authz) | `http/ext_authz.rs`                         | Envoy-compatible gRPC ext_authz                |
+| External processing (ext_proc)     | `http/ext_proc.rs`                          | Envoy-compatible gRPC ext_proc                 |
+| mTLS / CA client                   | `control/caclient.rs`                       | Certificate provisioning for workload identity |
+| CEL RBAC                           | `http/authorization.rs`, `mcp/rbac.rs`      | Policy evaluated per-request using CEL         |
 
 ---
 
 ### 5) Guardrails / Content Safety
 
-| Provider | Module | Trigger |
-|----------|--------|---------|
-| OpenAI Moderation API | `llm/policy/moderation.rs` | LLM request/response |
-| AWS Bedrock Guardrails | `llm/policy/bedrock_guardrails.rs` | LLM request/response |
-| Google Model Armor | `llm/policy/google_model_armor.rs` | LLM request/response |
-| Azure Content Safety | `llm/policy/azure_content_safety.rs` | LLM request/response |
-| Custom webhook | `llm/policy/webhook.rs` | LLM request/response |
-| Regex / PII | `llm/policy/pii/` | In-process, no external call |
+| Provider               | Module                               | Trigger                      |
+| ---------------------- | ------------------------------------ | ---------------------------- |
+| OpenAI Moderation API  | `llm/policy/moderation.rs`           | LLM request/response         |
+| AWS Bedrock Guardrails | `llm/policy/bedrock_guardrails.rs`   | LLM request/response         |
+| Google Model Armor     | `llm/policy/google_model_armor.rs`   | LLM request/response         |
+| Azure Content Safety   | `llm/policy/azure_content_safety.rs` | LLM request/response         |
+| Custom webhook         | `llm/policy/webhook.rs`              | LLM request/response         |
+| Regex / PII            | `llm/policy/pii/`                    | In-process, no external call |
 
 ---
 
 ### 6) Observability
 
-| Tool | Integration | Module |
-|------|-------------|--------|
-| OpenTelemetry OTLP (traces) | `opentelemetry-otlp`, gRPC + HTTP proto | `telemetry/trc.rs` |
-| OpenTelemetry OTLP (logs) | `opentelemetry-otlp` | `telemetry/log.rs` |
-| Prometheus metrics | `prometheus-client` | `telemetry/metrics.rs`, `management/metrics_server.rs` |
-| Grafana dashboard | Pre-built dashboard JSON | `manifests/grafana.json`, `controller/install/dashboards/` |
-| Tokio runtime metrics | `agent_core::metrics::TokioCollector` | `crates/core/src/metrics.rs` |
+| Tool                        | Integration                             | Module                                                     |
+| --------------------------- | --------------------------------------- | ---------------------------------------------------------- |
+| OpenTelemetry OTLP (traces) | `opentelemetry-otlp`, gRPC + HTTP proto | `telemetry/trc.rs`                                         |
+| OpenTelemetry OTLP (logs)   | `opentelemetry-otlp`                    | `telemetry/log.rs`                                         |
+| Prometheus metrics          | `prometheus-client`                     | `telemetry/metrics.rs`, `management/metrics_server.rs`     |
+| Grafana dashboard           | Pre-built dashboard JSON                | `manifests/grafana.json`, `controller/install/dashboards/` |
+| Tokio runtime metrics       | `agent_core::metrics::TokioCollector`   | `crates/core/src/metrics.rs`                               |
 
 Telemetry endpoint and headers are configurable via env vars (`OTEL_EXPORTER_OTLP_ENDPOINT`, etc.) or the static config file.
 
@@ -88,16 +88,16 @@ Telemetry endpoint and headers are configurable via env vars (`OTEL_EXPORTER_OTL
 
 ### 7) Kubernetes / Control Plane
 
-| Component | Technology | Notes |
-|-----------|-----------|-------|
-| Gateway API CRDs | `sigs.k8s.io/gateway-api` | Standard GatewayClass, Gateway, HTTPRoute, etc. |
-| Custom CRDs | `controller/api/v1alpha1/` | `AgentgatewayPolicy`, `AgentgatewayBackend`, etc. |
-| Controller runtime | `sigs.k8s.io/controller-runtime` | Reconcile loops |
-| Istio KRT | `istio.io/istio/pkg/kube/krt` | Reactive dependency tracking |
-| Deployer | `controller/pkg/deployer/` | Creates/manages agentgateway Pods |
-| XDS transport | Custom delta-xDS over gRPC | `crates/xds/`, `controller/pkg/apiclient/` |
-| Helm chart | `controller/install/helm/` | Packages controller + CRDs |
-| Kubernetes Inference Gateway | EPP (Endpoint Picker Protocol) | `http/ext_proc.rs` — selects endpoints based on GPU/KV metrics |
+| Component                    | Technology                       | Notes                                                          |
+| ---------------------------- | -------------------------------- | -------------------------------------------------------------- |
+| Gateway API CRDs             | `sigs.k8s.io/gateway-api`        | Standard GatewayClass, Gateway, HTTPRoute, etc.                |
+| Custom CRDs                  | `controller/api/v1alpha1/`       | `AgentgatewayPolicy`, `AgentgatewayBackend`, etc.              |
+| Controller runtime           | `sigs.k8s.io/controller-runtime` | Reconcile loops                                                |
+| Istio KRT                    | `istio.io/istio/pkg/kube/krt`    | Reactive dependency tracking                                   |
+| Deployer                     | `controller/pkg/deployer/`       | Creates/manages agentgateway Pods                              |
+| XDS transport                | Custom delta-xDS over gRPC       | `crates/xds/`, `controller/pkg/apiclient/`                     |
+| Helm chart                   | `controller/install/helm/`       | Packages controller + CRDs                                     |
+| Kubernetes Inference Gateway | EPP (Endpoint Picker Protocol)   | `http/ext_proc.rs` — selects endpoints based on GPU/KV metrics |
 
 ---
 

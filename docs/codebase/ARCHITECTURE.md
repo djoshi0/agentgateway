@@ -97,45 +97,45 @@ Kubernetes cluster
 
 ### 3) Layer / Module Responsibilities
 
-| Layer or module | Owns | Must not own | Evidence |
-|-----------------|------|--------------|----------|
-| `crates/agentgateway-app` | CLI arg parsing, allocator selection, top-level command dispatch | Business logic, protocol handling | `crates/agentgateway-app/src/lib.rs` |
-| `config.rs` | Parse static configuration (env + YAML) into `Config` struct | Dynamic state, routing decisions | `crates/agentgateway/src/config.rs` |
-| `state_manager.rs` | Watch config file / XDS, drive `Stores` updates | Per-request decisions | `crates/agentgateway/src/state_manager.rs` |
-| `store/` (`Stores`) | Live in-memory IR (Binds, Listeners, Routes, Policies, Workloads) | Parsing, protocol logic | `crates/agentgateway/src/store/` |
-| `types/agent.rs` | Canonical IR type definitions | Config translation, protocol I/O | `crates/agentgateway/src/types/agent.rs` |
-| `types/local.rs` | Local config → IR translation | XDS translation | `crates/agentgateway/src/types/local.rs` |
-| `types/agent_xds.rs` | XDS proto → IR translation | Local config | `crates/agentgateway/src/types/agent_xds.rs` |
-| `proxy/gateway.rs` | TCP listen, TLS termination, connection lifecycle, drain | Routing, policy evaluation | `crates/agentgateway/src/proxy/gateway.rs` |
-| `proxy/httpproxy.rs` | Per-request routing, policy chain execution, backend dispatch | Protocol-specific logic | `crates/agentgateway/src/proxy/httpproxy.rs` |
-| `llm/` | LLM provider protocol adaptation, token counting, guardrail policies | MCP/A2A handling | `crates/agentgateway/src/llm/` |
-| `mcp/` | MCP session lifecycle, tool RBAC, upstream multiplexing | LLM/A2A logic | `crates/agentgateway/src/mcp/` |
-| `a2a/` | A2A agent-card rewriting, JSON-RPC classification | MCP/LLM logic | `crates/agentgateway/src/a2a/` |
-| `http/` | Reusable HTTP middleware (auth, rate-limit, transform, ext_authz) | Protocol-specific parsing | `crates/agentgateway/src/http/` |
-| `cel/` | CEL execution context + `ContextBuilder` | Request routing decisions | `crates/agentgateway/src/cel/` |
-| `telemetry/` | Metrics, OTLP traces, structured logs | Business decisions | `crates/agentgateway/src/telemetry/` |
-| `transport/` | TLS, HBONE tunnel, stream buffering | Application-layer protocols | `crates/agentgateway/src/transport/` |
-| `crates/xds/` | XDS client: subscribe to ADP type URLs, feed handlers | IR translation | `crates/xds/src/` |
-| `controller/pkg/controller/` | K8s reconcile loops (GatewayClass, Gateway, routes) | XDS encoding | `controller/pkg/controller/` |
-| `controller/pkg/syncer/` | Translate K8s Gateway API types → XDS proto resources | K8s watch, deployer | `controller/pkg/syncer/` |
-| `controller/pkg/deployer/` | Manage agentgateway Pod lifecycle in Kubernetes | Config translation | `controller/pkg/deployer/` |
+| Layer or module              | Owns                                                                 | Must not own                      | Evidence                                     |
+| ---------------------------- | -------------------------------------------------------------------- | --------------------------------- | -------------------------------------------- |
+| `crates/agentgateway-app`    | CLI arg parsing, allocator selection, top-level command dispatch     | Business logic, protocol handling | `crates/agentgateway-app/src/lib.rs`         |
+| `config.rs`                  | Parse static configuration (env + YAML) into `Config` struct         | Dynamic state, routing decisions  | `crates/agentgateway/src/config.rs`          |
+| `state_manager.rs`           | Watch config file / XDS, drive `Stores` updates                      | Per-request decisions             | `crates/agentgateway/src/state_manager.rs`   |
+| `store/` (`Stores`)          | Live in-memory IR (Binds, Listeners, Routes, Policies, Workloads)    | Parsing, protocol logic           | `crates/agentgateway/src/store/`             |
+| `types/agent.rs`             | Canonical IR type definitions                                        | Config translation, protocol I/O  | `crates/agentgateway/src/types/agent.rs`     |
+| `types/local.rs`             | Local config → IR translation                                        | XDS translation                   | `crates/agentgateway/src/types/local.rs`     |
+| `types/agent_xds.rs`         | XDS proto → IR translation                                           | Local config                      | `crates/agentgateway/src/types/agent_xds.rs` |
+| `proxy/gateway.rs`           | TCP listen, TLS termination, connection lifecycle, drain             | Routing, policy evaluation        | `crates/agentgateway/src/proxy/gateway.rs`   |
+| `proxy/httpproxy.rs`         | Per-request routing, policy chain execution, backend dispatch        | Protocol-specific logic           | `crates/agentgateway/src/proxy/httpproxy.rs` |
+| `llm/`                       | LLM provider protocol adaptation, token counting, guardrail policies | MCP/A2A handling                  | `crates/agentgateway/src/llm/`               |
+| `mcp/`                       | MCP session lifecycle, tool RBAC, upstream multiplexing              | LLM/A2A logic                     | `crates/agentgateway/src/mcp/`               |
+| `a2a/`                       | A2A agent-card rewriting, JSON-RPC classification                    | MCP/LLM logic                     | `crates/agentgateway/src/a2a/`               |
+| `http/`                      | Reusable HTTP middleware (auth, rate-limit, transform, ext_authz)    | Protocol-specific parsing         | `crates/agentgateway/src/http/`              |
+| `cel/`                       | CEL execution context + `ContextBuilder`                             | Request routing decisions         | `crates/agentgateway/src/cel/`               |
+| `telemetry/`                 | Metrics, OTLP traces, structured logs                                | Business decisions                | `crates/agentgateway/src/telemetry/`         |
+| `transport/`                 | TLS, HBONE tunnel, stream buffering                                  | Application-layer protocols       | `crates/agentgateway/src/transport/`         |
+| `crates/xds/`                | XDS client: subscribe to ADP type URLs, feed handlers                | IR translation                    | `crates/xds/src/`                            |
+| `controller/pkg/controller/` | K8s reconcile loops (GatewayClass, Gateway, routes)                  | XDS encoding                      | `controller/pkg/controller/`                 |
+| `controller/pkg/syncer/`     | Translate K8s Gateway API types → XDS proto resources                | K8s watch, deployer               | `controller/pkg/syncer/`                     |
+| `controller/pkg/deployer/`   | Manage agentgateway Pod lifecycle in Kubernetes                      | Config translation                | `controller/pkg/deployer/`                   |
 
 ---
 
 ### 4) Reused Patterns
 
-| Pattern | Where found | Why it exists |
-|---------|-------------|---------------|
-| **IR (Internal Representation)** | `types/agent.rs`, `store/` | Decouples config source (local file vs. XDS) from runtime decisions |
-| **Drain / graceful shutdown** | `crates/core/src/drain.rs`, `app.rs` | Every long-lived component takes a `DrainWatcher`; shutdown is cooperative with a hard timeout |
-| **CEL ContextBuilder** | `crates/agentgateway/src/cel/` | Lazily captures expensive request data only if a policy expression references it |
-| **Forked crates with `[patch.crates-io]`** | `Cargo.toml` | Allows patching upstream (`schemars`, `http-serde`, `wiremock`) without waiting for upstreams |
-| **`_test.rs` sibling files** | `src/proxy/gateway_test.rs`, `src/http/*_tests.rs` | Keeps tests near implementation; avoids polluting `lib.rs` with test-only imports |
-| **Snapshot testing** | `types/local_tests/*.snap`, `insta` crate | Deterministic regression tests for config normalization; easy to update with `cargo insta review` |
-| **Separate `StoreUpdater` / `Store`** | `store/binds.rs`, `store/discovery.rs` | Write access is only held by state_manager; read access is cheaply cloned by proxy workers |
-| **`Strng` type** | `crates/core/src/strng.rs` | Immutable reference-counted string (cheap clone, pooled literals); hot path string overhead reduction |
-| **XDS resource-per-user-object** | `crates/protos/proto/resource.proto`, `architecture/configuration.md` | Avoids Envoy-style fan-out: 1 K8s route = 1 XDS proto = 1 IR update |
-| **Plugin SDK (KRT)** | `controller/pkg/pluginsdk/` | Istio KRT-based reactive collection wiring for controller reconcilers |
+| Pattern                                    | Where found                                                           | Why it exists                                                                                         |
+| ------------------------------------------ | --------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| **IR (Internal Representation)**           | `types/agent.rs`, `store/`                                            | Decouples config source (local file vs. XDS) from runtime decisions                                   |
+| **Drain / graceful shutdown**              | `crates/core/src/drain.rs`, `app.rs`                                  | Every long-lived component takes a `DrainWatcher`; shutdown is cooperative with a hard timeout        |
+| **CEL ContextBuilder**                     | `crates/agentgateway/src/cel/`                                        | Lazily captures expensive request data only if a policy expression references it                      |
+| **Forked crates with `[patch.crates-io]`** | `Cargo.toml`                                                          | Allows patching upstream (`schemars`, `http-serde`, `wiremock`) without waiting for upstreams         |
+| **`_test.rs` sibling files**               | `src/proxy/gateway_test.rs`, `src/http/*_tests.rs`                    | Keeps tests near implementation; avoids polluting `lib.rs` with test-only imports                     |
+| **Snapshot testing**                       | `types/local_tests/*.snap`, `insta` crate                             | Deterministic regression tests for config normalization; easy to update with `cargo insta review`     |
+| **Separate `StoreUpdater` / `Store`**      | `store/binds.rs`, `store/discovery.rs`                                | Write access is only held by state_manager; read access is cheaply cloned by proxy workers            |
+| **`Strng` type**                           | `crates/core/src/strng.rs`                                            | Immutable reference-counted string (cheap clone, pooled literals); hot path string overhead reduction |
+| **XDS resource-per-user-object**           | `crates/protos/proto/resource.proto`, `architecture/configuration.md` | Avoids Envoy-style fan-out: 1 K8s route = 1 XDS proto = 1 IR update                                   |
+| **Plugin SDK (KRT)**                       | `controller/pkg/pluginsdk/`                                           | Istio KRT-based reactive collection wiring for controller reconcilers                                 |
 
 ---
 

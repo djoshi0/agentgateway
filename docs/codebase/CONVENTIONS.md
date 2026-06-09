@@ -6,29 +6,29 @@
 
 #### Rust
 
-| Convention | Example | Evidence |
-|-----------|---------|----------|
-| Files: `snake_case.rs` | `state_manager.rs`, `httpproxy.rs` | All `src/` files |
-| Modules: `snake_case` | `pub mod state_manager;` | `crates/agentgateway/src/lib.rs` |
-| Test siblings: `{name}_test.rs` or `{name}_tests.rs` | `gateway_test.rs`, `jwt_tests.rs` | `proxy/`, `http/` |
-| Snapshot test data: `{name}_tests/` subdirectory | `local_tests/` | `src/types/local_tests/` |
-| Benchmark files: in `benches/` | `benches/` | `crates/agentgateway/benches/`, `crates/celx/benches/` |
-| Proto files: `snake_case.proto` | `resource.proto` | `crates/protos/proto/` |
+| Convention                                           | Example                            | Evidence                                               |
+| ---------------------------------------------------- | ---------------------------------- | ------------------------------------------------------ |
+| Files: `snake_case.rs`                               | `state_manager.rs`, `httpproxy.rs` | All `src/` files                                       |
+| Modules: `snake_case`                                | `pub mod state_manager;`           | `crates/agentgateway/src/lib.rs`                       |
+| Test siblings: `{name}_test.rs` or `{name}_tests.rs` | `gateway_test.rs`, `jwt_tests.rs`  | `proxy/`, `http/`                                      |
+| Snapshot test data: `{name}_tests/` subdirectory     | `local_tests/`                     | `src/types/local_tests/`                               |
+| Benchmark files: in `benches/`                       | `benches/`                         | `crates/agentgateway/benches/`, `crates/celx/benches/` |
+| Proto files: `snake_case.proto`                      | `resource.proto`                   | `crates/protos/proto/`                                 |
 
 #### Go (controller)
 
-| Convention | Example | Evidence |
-|-----------|---------|----------|
-| Files: `snake_case.go` | `controller.go`, `gw_controller.go`, `start.go` | `controller/pkg/controller/` |
-| Package names: lowercase, single word | `package controller` | `controller/pkg/controller/controller.go` |
-| Test files: `{name}_test.go` | `start_test.go`, `start_internal_test.go` | `controller/pkg/controller/` |
+| Convention                            | Example                                         | Evidence                                  |
+| ------------------------------------- | ----------------------------------------------- | ----------------------------------------- |
+| Files: `snake_case.go`                | `controller.go`, `gw_controller.go`, `start.go` | `controller/pkg/controller/`              |
+| Package names: lowercase, single word | `package controller`                            | `controller/pkg/controller/controller.go` |
+| Test files: `{name}_test.go`          | `start_test.go`, `start_internal_test.go`       | `controller/pkg/controller/`              |
 
 #### TypeScript / UI
 
-| Convention | Example | Evidence |
-|-----------|---------|----------|
-| Component files: PascalCase `.tsx` | [ASK USER — not inspected in depth] | `ui/src/components/` |
-| Config files: kebab-case | `next.config.ts`, `postcss.config.mjs` | `ui/` root |
+| Convention                         | Example                                | Evidence             |
+| ---------------------------------- | -------------------------------------- | -------------------- |
+| Component files: PascalCase `.tsx` | [ASK USER — not inspected in depth]    | `ui/src/components/` |
+| Config files: kebab-case           | `next.config.ts`, `postcss.config.mjs` | `ui/` root           |
 
 ---
 
@@ -92,6 +92,7 @@ ESLint via `next lint`; `eslintrc` config at project root of `ui/`
 ### 6) Import Organization (Rust)
 
 Imports are grouped into three sections by `cargo fmt`:
+
 1. `std::` items
 2. External crates
 3. `crate::` / `super::` local items

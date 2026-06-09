@@ -90,62 +90,62 @@ agentgateway/
 
 ### 2) Entry Points
 
-| Entry point | Language | Path | Description |
-|-------------|----------|------|-------------|
-| Proxy binary | Rust | `crates/agentgateway-app/src/main.rs` | Calls `agentgateway_app::run()` |
-| App wiring | Rust | `crates/agentgateway-app/src/lib.rs` | CLI args, allocator selection, subcommands |
-| Core run loop | Rust | `crates/agentgateway/src/app.rs` | Spawns proxy, XDS, metrics, readiness |
-| Config parsing | Rust | `crates/agentgateway/src/config.rs` | Builds `Config` from env + YAML |
-| State manager | Rust | `crates/agentgateway/src/state_manager.rs` | Watches config file or XDS, feeds `Stores` |
-| Gateway proxy | Rust | `crates/agentgateway/src/proxy/gateway.rs` | Accepts TCP, dispatches HTTP |
-| HTTP proxy | Rust | `crates/agentgateway/src/proxy/httpproxy.rs` | Per-request routing + policy pipeline |
-| Controller binary | Go | `controller/cmd/agentgateway/main.go` | Starts Kubernetes controller |
-| Controller setup | Go | `controller/pkg/setup/` | Wires manager, controllers, deployer |
-| Controller reconcile | Go | `controller/pkg/controller/start.go` | Registers reconcilers |
+| Entry point          | Language | Path                                         | Description                                |
+| -------------------- | -------- | -------------------------------------------- | ------------------------------------------ |
+| Proxy binary         | Rust     | `crates/agentgateway-app/src/main.rs`        | Calls `agentgateway_app::run()`            |
+| App wiring           | Rust     | `crates/agentgateway-app/src/lib.rs`         | CLI args, allocator selection, subcommands |
+| Core run loop        | Rust     | `crates/agentgateway/src/app.rs`             | Spawns proxy, XDS, metrics, readiness      |
+| Config parsing       | Rust     | `crates/agentgateway/src/config.rs`          | Builds `Config` from env + YAML            |
+| State manager        | Rust     | `crates/agentgateway/src/state_manager.rs`   | Watches config file or XDS, feeds `Stores` |
+| Gateway proxy        | Rust     | `crates/agentgateway/src/proxy/gateway.rs`   | Accepts TCP, dispatches HTTP               |
+| HTTP proxy           | Rust     | `crates/agentgateway/src/proxy/httpproxy.rs` | Per-request routing + policy pipeline      |
+| Controller binary    | Go       | `controller/cmd/agentgateway/main.go`        | Starts Kubernetes controller               |
+| Controller setup     | Go       | `controller/pkg/setup/`                      | Wires manager, controllers, deployer       |
+| Controller reconcile | Go       | `controller/pkg/controller/start.go`         | Registers reconcilers                      |
 
 ### 3) Key Source Modules (`crates/agentgateway/src/`)
 
-| Module | Purpose |
-|--------|---------|
-| `app.rs` | Top-level async startup, thread pool, drain, readiness |
-| `config.rs` | Static config parsing (env vars + YAML) |
-| `state_manager.rs` | Dynamic config: file-watch hot-reload + XDS subscription |
-| `store/` | In-memory IR stores: `BindStore` (routes/policies) + `DiscoveryStore` (workloads) |
-| `types/agent.rs` | Core IR types: `Bind`, `Listener`, `Route`, `Backend`, policies (3 327 lines) |
-| `types/local.rs` | Local config → IR translation (3 315 lines) |
-| `types/agent_xds.rs` | XDS proto → IR translation |
-| `types/loadbalancer.rs` | Load balancer (P2C, round-robin, weighted, locality-aware) |
-| `proxy/gateway.rs` | TCP listener, TLS termination, connection dispatch |
-| `proxy/httpproxy.rs` | HTTP request routing, auth, policy, backend calls (~3 200 lines) |
-| `proxy/tcpproxy.rs` | TCP passthrough proxy |
-| `llm/mod.rs` | LLM gateway: provider dispatch, token counting, request/response rewrite |
-| `llm/policy/` | Guardrail policies: prompt guard, PII, moderation, Bedrock/Azure/Google guardrails |
-| `llm/{openai,anthropic,bedrock,gemini,azure,vertex,copilot}.rs` | Per-provider adapters |
-| `mcp/mod.rs` | MCP protocol core: session lifecycle, error types, failure modes |
-| `mcp/handler.rs` | MCP request handling + tool routing |
-| `mcp/session.rs` | MCP session multiplexing (SSE / Streamable HTTP) |
-| `mcp/upstream/` | Upstream transports: HTTP, SSE, stdio, Streamable HTTP, OpenAPI |
-| `a2a/mod.rs` | A2A protocol: agent-card rewriting, RPC classification |
-| `http/` | HTTP middleware: JWT, API key, OAuth, OIDC, CORS, CSRF, rate limiting, ext_authz, ext_proc, retries, timeouts, transformations |
-| `cel/` | CEL execution engine integration + `ContextBuilder` |
-| `telemetry/` | Metrics, distributed tracing (OTLP), structured logging |
-| `transport/` | TLS, HBONE, stream utilities |
-| `control/` | CA client for mTLS cert provisioning |
-| `management/` | Admin API, metrics server, readiness endpoint |
-| `client.rs` | Outbound HTTP client used for backend calls |
-| `ui.rs` | Serve embedded Next.js build at `/ui` |
+| Module                                                          | Purpose                                                                                                                        |
+| --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `app.rs`                                                        | Top-level async startup, thread pool, drain, readiness                                                                         |
+| `config.rs`                                                     | Static config parsing (env vars + YAML)                                                                                        |
+| `state_manager.rs`                                              | Dynamic config: file-watch hot-reload + XDS subscription                                                                       |
+| `store/`                                                        | In-memory IR stores: `BindStore` (routes/policies) + `DiscoveryStore` (workloads)                                              |
+| `types/agent.rs`                                                | Core IR types: `Bind`, `Listener`, `Route`, `Backend`, policies (3 327 lines)                                                  |
+| `types/local.rs`                                                | Local config → IR translation (3 315 lines)                                                                                    |
+| `types/agent_xds.rs`                                            | XDS proto → IR translation                                                                                                     |
+| `types/loadbalancer.rs`                                         | Load balancer (P2C, round-robin, weighted, locality-aware)                                                                     |
+| `proxy/gateway.rs`                                              | TCP listener, TLS termination, connection dispatch                                                                             |
+| `proxy/httpproxy.rs`                                            | HTTP request routing, auth, policy, backend calls (~3 200 lines)                                                               |
+| `proxy/tcpproxy.rs`                                             | TCP passthrough proxy                                                                                                          |
+| `llm/mod.rs`                                                    | LLM gateway: provider dispatch, token counting, request/response rewrite                                                       |
+| `llm/policy/`                                                   | Guardrail policies: prompt guard, PII, moderation, Bedrock/Azure/Google guardrails                                             |
+| `llm/{openai,anthropic,bedrock,gemini,azure,vertex,copilot}.rs` | Per-provider adapters                                                                                                          |
+| `mcp/mod.rs`                                                    | MCP protocol core: session lifecycle, error types, failure modes                                                               |
+| `mcp/handler.rs`                                                | MCP request handling + tool routing                                                                                            |
+| `mcp/session.rs`                                                | MCP session multiplexing (SSE / Streamable HTTP)                                                                               |
+| `mcp/upstream/`                                                 | Upstream transports: HTTP, SSE, stdio, Streamable HTTP, OpenAPI                                                                |
+| `a2a/mod.rs`                                                    | A2A protocol: agent-card rewriting, RPC classification                                                                         |
+| `http/`                                                         | HTTP middleware: JWT, API key, OAuth, OIDC, CORS, CSRF, rate limiting, ext_authz, ext_proc, retries, timeouts, transformations |
+| `cel/`                                                          | CEL execution engine integration + `ContextBuilder`                                                                            |
+| `telemetry/`                                                    | Metrics, distributed tracing (OTLP), structured logging                                                                        |
+| `transport/`                                                    | TLS, HBONE, stream utilities                                                                                                   |
+| `control/`                                                      | CA client for mTLS cert provisioning                                                                                           |
+| `management/`                                                   | Admin API, metrics server, readiness endpoint                                                                                  |
+| `client.rs`                                                     | Outbound HTTP client used for backend calls                                                                                    |
+| `ui.rs`                                                         | Serve embedded Next.js build at `/ui`                                                                                          |
 
 ### 4) Non-Obvious Directories
 
-| Directory | What it is |
-|-----------|-----------|
-| `tools/` | Pinned tool binaries (`buf`, `helm`, `kind`, `ginkgo`, etc.) — NOT source code |
-| `crates/cel-fork/` | Forked fork of the cel-rust crate; patched via `[patch.crates-io]` |
-| `crates/htpasswd-verify-fork/` | Forked htpasswd verifier |
-| `common/scripts/` | Shell install script for the binary release |
-| `controller/hack/` | Code generation, CI utility scripts — not production code |
-| `controller/install/` | Helm chart templates (including large CRD YAML templates) |
-| `api/` | Shared Go package for the protobuf-generated resource types |
+| Directory                      | What it is                                                                     |
+| ------------------------------ | ------------------------------------------------------------------------------ |
+| `tools/`                       | Pinned tool binaries (`buf`, `helm`, `kind`, `ginkgo`, etc.) — NOT source code |
+| `crates/cel-fork/`             | Forked fork of the cel-rust crate; patched via `[patch.crates-io]`             |
+| `crates/htpasswd-verify-fork/` | Forked htpasswd verifier                                                       |
+| `common/scripts/`              | Shell install script for the binary release                                    |
+| `controller/hack/`             | Code generation, CI utility scripts — not production code                      |
+| `controller/install/`          | Helm chart templates (including large CRD YAML templates)                      |
+| `api/`                         | Shared Go package for the protobuf-generated resource types                    |
 
 ### 5) Evidence
 

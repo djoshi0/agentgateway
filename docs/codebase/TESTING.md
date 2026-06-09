@@ -4,16 +4,16 @@
 
 ### 1) Test Runners and Commands
 
-| Component | Command | Runner |
-|-----------|---------|--------|
-| Rust (all tests) | `make test` → `cargo test --all-targets` | Cargo test harness |
-| Rust (release profile) | `make test-release` | Cargo, `quick-release` profile |
-| Rust benchmarks | `cargo bench` (divan) | `crates/agentgateway/benches/`, `crates/celx/benches/` |
-| Go controller | `go test -race ./...` | `go test` with race detector |
-| UI | `npm test` (from `ui/`) | [ASK USER: test framework not confirmed — no test script visible in `ui/package.json`] |
-| Controller e2e | `go test -tags=e2e -v ./controller/test/e2e` | Kind cluster required |
-| Gateway API conformance | `make -C controller all-conformance` | Kind cluster required |
-| Example validation | `make validate` → `tools/validate-configs.sh` | Validates all `examples/*/config.yaml` |
+| Component               | Command                                       | Runner                                                                                 |
+| ----------------------- | --------------------------------------------- | -------------------------------------------------------------------------------------- |
+| Rust (all tests)        | `make test` → `cargo test --all-targets`      | Cargo test harness                                                                     |
+| Rust (release profile)  | `make test-release`                           | Cargo, `quick-release` profile                                                         |
+| Rust benchmarks         | `cargo bench` (divan)                         | `crates/agentgateway/benches/`, `crates/celx/benches/`                                 |
+| Go controller           | `go test -race ./...`                         | `go test` with race detector                                                           |
+| UI                      | `npm test` (from `ui/`)                       | [ASK USER: test framework not confirmed — no test script visible in `ui/package.json`] |
+| Controller e2e          | `go test -tags=e2e -v ./controller/test/e2e`  | Kind cluster required                                                                  |
+| Gateway API conformance | `make -C controller all-conformance`          | Kind cluster required                                                                  |
+| Example validation      | `make validate` → `tools/validate-configs.sh` | Validates all `examples/*/config.yaml`                                                 |
 
 ---
 
@@ -45,6 +45,7 @@ crates/agentgateway/
 ```
 
 All `_test.rs` / `_tests.rs` files are compiled only in test mode via:
+
 ```rust
 #[cfg(test)]
 #[path = "foo_test.rs"]
@@ -75,19 +76,19 @@ controller/
 
 ### 3) Testing Approaches by Layer
 
-| Layer | Approach | Tools |
-|-------|----------|-------|
-| Config normalization | Snapshot tests | `insta` — `cargo insta review` to update |
-| HTTP middleware (jwt, ext_authz, etc.) | Unit tests with `wiremock` for external HTTP | `wiremock` fork, `insta` |
-| MCP session/routing | Unit tests + integration tests | inline `#[cfg(test)]` |
-| LLM provider adapters | Unit tests with recorded HTTP fixtures | `wiremock`, inline tests |
-| Proxy (gateway, httpproxy) | Sibling test files + integration tests | `wiremock`, `tokio::test` |
-| Load balancer | Unit tests in `loadbalancer.rs` | Rust std test |
-| CEL expressions | Unit tests in `celx` + data-driven | `crates/celx/benches/` |
-| Controller reconcile | Go unit + integration tests | `controller-runtime` fake client, `gomega` |
-| E2E (K8s) | Real cluster tests (Kind) | `kind`, Rust binary, `go test -tags=e2e` |
-| Conformance | Gateway API conformance suite | `make -C controller all-conformance` |
-| Auth (Keycloak/OIDC) | Only on Blacksmith CI runner | `tools/manage-validation-deps.sh start` |
+| Layer                                  | Approach                                     | Tools                                      |
+| -------------------------------------- | -------------------------------------------- | ------------------------------------------ |
+| Config normalization                   | Snapshot tests                               | `insta` — `cargo insta review` to update   |
+| HTTP middleware (jwt, ext_authz, etc.) | Unit tests with `wiremock` for external HTTP | `wiremock` fork, `insta`                   |
+| MCP session/routing                    | Unit tests + integration tests               | inline `#[cfg(test)]`                      |
+| LLM provider adapters                  | Unit tests with recorded HTTP fixtures       | `wiremock`, inline tests                   |
+| Proxy (gateway, httpproxy)             | Sibling test files + integration tests       | `wiremock`, `tokio::test`                  |
+| Load balancer                          | Unit tests in `loadbalancer.rs`              | Rust std test                              |
+| CEL expressions                        | Unit tests in `celx` + data-driven           | `crates/celx/benches/`                     |
+| Controller reconcile                   | Go unit + integration tests                  | `controller-runtime` fake client, `gomega` |
+| E2E (K8s)                              | Real cluster tests (Kind)                    | `kind`, Rust binary, `go test -tags=e2e`   |
+| Conformance                            | Gateway API conformance suite                | `make -C controller all-conformance`       |
+| Auth (Keycloak/OIDC)                   | Only on Blacksmith CI runner                 | `tools/manage-validation-deps.sh start`    |
 
 ---
 
@@ -104,16 +105,16 @@ controller/
 
 ### 5) CI Test Matrix
 
-| Job | Platform(s) | Trigger |
-|-----|-------------|---------|
-| `proxy-test` | Linux (Blacksmith 4vCPU), Windows 2025, macOS 15 | PR + push to main |
-| `proxy-lint` | Linux (Blacksmith) | PR + push to main |
-| `ui-lint` | Ubuntu 24.04 | PR + push to main |
-| `controller-test` | Linux (Blacksmith) | PR + push to main |
-| `controller-lint` | Linux (Blacksmith) | PR + push to main |
-| `controller-e2e` | Linux (Blacksmith) | PR + push to main |
-| `controller-conformance` | Linux (Blacksmith) | PR + push to main |
-| Nightly release | Linux | Scheduled (02:00 UTC daily) |
+| Job                      | Platform(s)                                      | Trigger                     |
+| ------------------------ | ------------------------------------------------ | --------------------------- |
+| `proxy-test`             | Linux (Blacksmith 4vCPU), Windows 2025, macOS 15 | PR + push to main           |
+| `proxy-lint`             | Linux (Blacksmith)                               | PR + push to main           |
+| `ui-lint`                | Ubuntu 24.04                                     | PR + push to main           |
+| `controller-test`        | Linux (Blacksmith)                               | PR + push to main           |
+| `controller-lint`        | Linux (Blacksmith)                               | PR + push to main           |
+| `controller-e2e`         | Linux (Blacksmith)                               | PR + push to main           |
+| `controller-conformance` | Linux (Blacksmith)                               | PR + push to main           |
+| Nightly release          | Linux                                            | Scheduled (02:00 UTC daily) |
 
 CI runs on [Blacksmith](https://blacksmith.sh/) runners for Linux (25 GB cache vs. GitHub's 10 GB).
 
